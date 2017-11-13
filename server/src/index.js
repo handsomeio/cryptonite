@@ -11,8 +11,25 @@ const jsonParser = bodyParser.json();
 
 app.use(cors());
 
-app.post('/subscribe', jsonParser, (req, res) => {
+function getListOfSubscribers(email) {
+  axios({
+    method: "get",
+    url,
+  }).then((response) => {
+    return response.data.members.map(memeber => {
+      if (member.email_address === email) {
+        return throw new Error('This email is already subsribed');
+      }
+      return;
+    });
+  }).catch((error) => {
+    console.log(`Error: ${error}`);
+  });
+}
+app.post('/subscribe', jsonParser, async (req, res) => {
   const { firstName, lastName, email } = req.body;
+
+  await getListOfSubscribers(email);
 
   axios({
     method: "post",
