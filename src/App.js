@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
+
 
     this.state = {
       email: '',
@@ -14,14 +15,15 @@ class App extends Component {
     };
   }
 
-  handleChange = (event) => {
-    const { target } = event;
-    const { name, value } = target;
 
-    this.setState({
-      [name] : value
-    });
-  }
+    handleChange = (event) => {
+        const {target} = event;
+        const {name, value} = target;
+
+        this.setState({
+            [name]: value
+        });
+    }
 
   onSubmit = (event) => {
     const { firstName, lastName, email } = this.state;
@@ -46,35 +48,25 @@ class App extends Component {
     });
   }
 
-  render() {
-    const { firstName, lastName, email } = this.state;
 
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <div>
-          <form onSubmit={this.onSubmit}>
-            <label>
-              First Name
-              <input type="text" name="firstName" value={firstName} onChange={this.handleChange}/>
-            </label>
-            <label>
-              Last Name
-              <input type="text" name="lastName" value={lastName} onChange={this.handleChange} />
-            </label>
-            <label>
-              Email
-              <input type="email" name="email" value={email} onChange={this.handleChange} />
-            </label>
-            <button type="submit">Save</button>
-          </form>
-        </div>
-      </div>
-    );
-  }
+    render() {
+        const {firstName, lastName, email} = this.state;
+
+        return (
+
+               <div class="App">
+
+                    <form onSubmit={this.onSubmit}>
+                        <div class="fields">
+                            <input class="email" id="email" type="email" name="email" placeholder="who@am.i" value={email}
+                                   onChange={this.handleChange}/>
+                            <button class="action-send" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+               </div>
+
+        );
+    }
 }
 
 export default App;
