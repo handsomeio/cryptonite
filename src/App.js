@@ -1,72 +1,68 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-
+  constructor(props) {
+    super(props);
 
     this.state = {
       email: '',
-      firstName: '',
-      lastName: '',
+      status: '',
     };
   }
 
-
-    handleChange = (event) => {
-        const {target} = event;
-        const {name, value} = target;
-
-        this.setState({
-            [name]: value
-        });
-    }
-
-  onSubmit = (event) => {
-    const { firstName, lastName, email } = this.state;
-    event.preventDefault();
-
-    axios.post('http://localhost:4000/subscribe', {
-        firstName,
-        lastName,
-        email,
-      })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  handleChange = (event) => {
+    const { target } = event;
+    const { name, value } = target;
 
     this.setState({
-      firstName: '',
-      lastName: '',
-      email: '',
+      [name] : value
     });
   }
 
+  onSubmit = (event) => {
+    const { email } = this.state;
+    event.preventDefault();
 
-    render() {
-        const {firstName, lastName, email} = this.state;
+    axios
+      .post('http://localhost:4000/subscribe', {email})
+      .then(
+        response => this.setState({ status: 'Succesfully subscribed' }),
+        error => this.setState({ status: 'This email is already subsribed' }),
+      )
+      .catch(
+        error => this.setState({ status: 'This email is already subsribed' }),
+      );
 
-        return (
+    this.setState({ email: '' });
+  }
 
-               <div class="App">
+  render() {
+    const { status, email } = this.state;
 
-                    <form onSubmit={this.onSubmit}>
-                        <div class="fields">
-                            <input class="email" id="email" type="email" name="email" placeholder="who@am.i" value={email}
-                                   onChange={this.handleChange}/>
-                            <button class="action-send" type="submit">Subscribe</button>
-                        </div>
-                    </form>
-               </div>
-
-        );
-    }
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <div style={{color: 'red'}}>
+          {status}
+        </div>
+        <div>
+          <form onSubmit={this.onSubmit}>
+            <label>
+              Email
+              <input type="email" name="email" value={email} onChange={this.handleChange} />
+            </label>
+            <button type="submit">Save</button>
+          </form>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
