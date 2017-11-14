@@ -7,35 +7,13 @@ import url from './config/url';
 import auth from './config/auth';
 
 let app = express();
-let error;
 const jsonParser = bodyParser.json();
 
 app.use(cors());
 
-function getListOfSubscribers(email) {
-  error = null;
-  return axios({
-    method: "get",
-    url,
-    auth,
-  }).then((response) => {
-      response.data.members.map(member => {
-      if (member.email_address === email) {
-        return error = 'This email is already subsribed';
-      }
-
-      return;
-    });
-  }).catch((error) => {
-    return error;
-  });
-}
-
 app.post('/subscribe', jsonParser, async (req, res) => {
   const { email } = req.body;
-  await getListOfSubscribers(email);
 
-  if (!error) {
     axios({
       method: "post",
       url,
@@ -51,11 +29,8 @@ app.post('/subscribe', jsonParser, async (req, res) => {
     }).then((response) => {
       res.json(response.data);
     }).catch((error) => {
-      res.status(500).json({ error })
+      res.status(500).json( error )
     });
-  } else {
-    res.status(400).json({ error });
-  }
 });
 
 app.listen(4000, () => {
