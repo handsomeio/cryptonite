@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import title from './assets/title.png';
+import logo from './assets/logo.svg';
+
 import './App.css';
 import axios from 'axios';
 
@@ -9,7 +11,8 @@ class App extends Component {
 
         this.state = {
             email: '',
-            status: '',
+            status: 'Subscribe',
+            success: false,
         };
     }
 
@@ -23,41 +26,47 @@ class App extends Component {
     }
 
     onSubmit = (event) => {
-        const {email} = this.state;
         event.preventDefault();
 
-        axios
-            .post('http://localhost:4000/subscribe', {email})
-            .then(
-                response => {
-                    console.log(response);
-                    this.setState({status: 'Succesfully subscribed'});
-                },
-                error => console.log(error),
-            )
-            .catch(
-                error => console.log(error),
-            );
+        if (!this.state.success) {
+            const {email} = this.state;
 
-        this.setState({email: ''});
+            axios
+                .post('http://bitcoach.net:4000/subscribe', {email})
+                .then(
+                    response => {
+                        this.setState({status: 'Subscribed!', success: true});
+                    },
+
+                    error => console.log(error),
+                )
+                .catch(
+                    error => console.log(error),
+                );
+
+        }
     }
+
 
     render() {
         const {status, email} = this.state;
 
         return (
             <div className="App">
-                    <img src={title} className="title" alt="logo"/>
+                    <img src={logo} className="title"/>
                     <div className="fields">
-                        <div style={{color: 'white', fontSize: '24px'}}>
-                            {status}
-                        </div>
                         <form onSubmit={this.onSubmit}>
-                            <input className="email" type="email" name="email" placeholder="Enter your mail" value={email}
-                                   onChange={this.handleChange}/>
-                            <button className="action-send" type="submit">Subscribe</button>
+                            <div className="wrapper">
+                                <input className="email" type="email" name="email" placeholder="Enter your e-mail"
+                                       value={email}
+                                       onChange={this.handleChange}/>
+                                <button className={this.state.success ? "success action-send" : "action-send"}
+                                        type="submit">{status}</button>
+                            </div>
                         </form>
-                    </div>
+                </div>
+                <div className="bg">
+                </div>
             </div>
         );
     }
