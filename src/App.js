@@ -38,11 +38,11 @@ class App extends Component {
         error => this.setState({ status: 'This email is already subsribed' }),
       );
 
-    this.setState({ email: '' });
+    this.setState({ email: '', firstName: '', lastName: '' });
   }
 
   render() {
-    const { status } = this.state;
+    const { status, email, firstName, lastName } = this.state;
 
     return (
       <div>
@@ -58,19 +58,19 @@ class App extends Component {
             </div>
             <form className="form" onSubmit={this.onSubmit}>
               <div className="group">
-                <input type="text" name="firstName" required />
+                <input type="text" name="firstName" onChange={this.handleChange} value={firstName} required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Meno</label>
               </div>
               <div className="group">
-                <input type="text" name="lastName" required />
+                <input type="text" name="lastName" onChange={this.handleChange} value={lastName} required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Priezvisko</label>
               </div>
               <div className="group">
-                <input type="email" name="email" required />
+                <input type="email" name="email" onChange={this.handleChange} value={email} required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Email</label>
