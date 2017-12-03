@@ -9,8 +9,6 @@ class App extends Component {
 
     this.state = {
       email: '',
-      firstName: '',
-      lastName: '',
       status: '',
     };
   }
@@ -25,11 +23,11 @@ class App extends Component {
   }
 
   onSubmit = (event) => {
-    const { email, firstName, lastName } = this.state;
+    const { email } = this.state;
     event.preventDefault();
 
     axios
-      .post('http://localhost:4000/webinar/subscribe', {email, firstName, lastName})
+      .post('http://localhost:4000/subscribe', {email})
       .then(
         response => this.setState({ status: 'Succesfully subscribed' }),
         error => this.setState({ status: 'This email is already subsribed' }),
@@ -42,7 +40,7 @@ class App extends Component {
   }
 
   render() {
-    const { status } = this.state;
+    const { status, email } = this.state;
 
     return (
       <div>
@@ -58,19 +56,19 @@ class App extends Component {
             </div>
             <form className="form" onSubmit={this.onSubmit}>
               <div className="group">
-                <input type="text" name="firstName" required />
+                <input type="text" required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Meno</label>
               </div>
               <div className="group">
-                <input type="text" name="lastName" required />
+                <input type="text" required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Priezvisko</label>
               </div>
               <div className="group">
-                <input type="email" name="email" required />
+                <input type="email" required />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label>Email</label>
@@ -83,6 +81,7 @@ class App extends Component {
           <div className="body-title-wrap">
             <div className="body-title">Webinar Lorem Ipsum</div>
             <div className="body-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+          </div>
           <div className="circle-bar-wrap">
             <ul className="circle-bar">
               <li>
@@ -111,11 +110,10 @@ class App extends Component {
               </li>
             </ul>
           </div>
-          </div>
         </div>
         <div className="footer-wrap">
-          <div className="copy-rigth">
-            &#169; 2017 Bitcoach
+          <div>
+
           </div>
           <div className="social-wrap">
             <a href="#" className="social-link">
