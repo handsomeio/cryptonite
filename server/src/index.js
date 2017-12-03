@@ -12,28 +12,8 @@ const jsonParser = bodyParser.json();
 
 app.use(cors());
 
-function getListOfSubscribers(email) {
-  error = null;
-  return axios({
-    method: "get",
-    url,
-    auth,
-  }).then((response) => {
-      response.data.members.map(member => {
-      if (member.email_address === email) {
-        return error = 'This email is already subsribed';
-      }
-
-      return;
-    });
-  }).catch((error) => {
-    return error;
-  });
-}
-
 app.post('/subscribe', jsonParser, async (req, res) => {
   const { email } = req.body;
-  await getListOfSubscribers(email);
 
   if (!error) {
     axios({
@@ -61,12 +41,17 @@ app.post('/subscribe', jsonParser, async (req, res) => {
 
 app.post('/webinar/subscribe', jsonParser, async (req, res) => {
   const { email, firstName, lastName } = req.body;
+
   axios({
     method: "post",
     url,
     data: {
       "email_address": email,
       "status": "subscribed",
+      "merge_fields": {
+        "FNAME": "Urist",
+        "LNAME": "McVankab"
+      }
     },
     headers: {
       "Access-Control-Allow-Credentials":"true",
