@@ -118,16 +118,16 @@ class App extends Component {
             &#169; 2017 Bitcoach
           </div>
           <div className="social-wrap">
-            <a href="#" className="social-link">
+            <a href="https://www.facebook.com/bitc0ach/" target="_blank">
               <img src={require('./assets/facebook.svg')} className="social-logo" alt="facebook" />
             </a>
-            <a href="#">
+            <a href="https://twitter.com/BitC0ach" target="_blank">
               <img src={require('./assets/twitter.svg')} className="social-logo" alt="twitter" />
             </a>
-            <a href="#">
+            <a href="https://t.me/join_bitcoachCHAT" target="_blank">
               <img src={require('./assets/telegram.svg')} className="social-logo" alt="telegram" />
             </a>
-            <a href="#">
+            <a href="mailto:info@bitcoach.net">
               <img src={require('./assets/mail.svg')} className="social-logo" alt="mail" />
             </a>
           </div>
