@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 class App extends Component {
   constructor(props) {
@@ -31,8 +33,14 @@ class App extends Component {
     axios
       .post('http://localhost:4000/webinar/subscribe', {email, firstName, lastName})
       .then(
-        response => this.setState({ status: 'Succesfully subscribed' }),
-        error => this.setState({ status: 'This email is already subsribed' }),
+        response => {
+          NotificationManager.success('Uspense ste sa prihlasili', 'Title here');
+          this.setState({ status: 'Succesfully subscribed' });
+        },
+        error => {
+          NotificationManager.error('Error message');
+          this.setState({ status: 'This email is already subsribed' });
+        },
       )
       .catch(
         error => this.setState({ status: 'This email is already subsribed' }),
@@ -49,6 +57,8 @@ class App extends Component {
         <header className="header">
           <img src={require('./assets/logo.svg')} className="logo" alt="bitcoach-logo" />
         </header>
+
+        <NotificationContainer />
 
         <div className="banner-wrap">
           <div className="content-wrap">

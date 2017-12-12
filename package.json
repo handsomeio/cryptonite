@@ -2,11 +2,12 @@
   "name": "cryptonite",
   "version": "0.1.0",
   "private": true,
-  "homepage" : "http://bitcoach.net",
+  "homepage": "http://bitcoach.net",
   "dependencies": {
     "axios": "^0.17.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-notifications": "^1.4.3",
     "react-scripts": "1.0.17"
   },
   "scripts": {
