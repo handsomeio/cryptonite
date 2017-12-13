@@ -31,7 +31,7 @@ class App extends Component {
         event.preventDefault();
 
         const httpClient = axios.create();
-        httpClient.defaults.timeout = 3000;
+        httpClient.defaults.timeout = 2000;
 
         httpClient
             .post('http://bitcoach.net:4000/webinar/subscribe', {email, firstName, lastName})
@@ -41,7 +41,11 @@ class App extends Component {
                     this.setState({email: '', firstName: '', lastName: '', status: 'Succesfully subscribed'});
                 },
                 error => {
-                    NotificationManager.error('Nemate internetove pripojenie/uzivatel je uz zaregistrovany', 'Webinar');
+                    if(navigator.onLine) {
+                        NotificationManager.error('Pouzivatel je uz zaregistrovany', 'Webinar');
+                    } else {
+                        NotificationManager.error('Problem s internetovym pripojenim', 'Webinar');
+                    }
                     this.setState({status: 'This email is already subsribed'});
                 },
             )
