@@ -237,6 +237,10 @@ padding-left: 0;
     height: 1px;
 }
 
+input:invalid {
+    -moz-box-shadow: none;
+}
+
 .circle-icon {
     width: 60px;
 
@@ -251,8 +255,6 @@ padding-left: 0;
     color: #656565;
     text-align: center;
 }
-
-
 
 .footer-wrap {
   background: #09245D;

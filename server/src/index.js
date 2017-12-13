@@ -3,7 +3,7 @@ import axios from 'axios';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import url from './config/url';
+import { subscribeUrl, webinarUrl } from './config/url';
 import auth from './config/auth';
 
 let app = express();
@@ -18,7 +18,7 @@ app.post('/subscribe', jsonParser, async (req, res) => {
   if (!error) {
     axios({
       method: "post",
-      url,
+        url: subscribeUrl,
       data: {
         "email_address": email,
         "status": "subscribed",
@@ -42,15 +42,18 @@ app.post('/subscribe', jsonParser, async (req, res) => {
 app.post('/webinar/subscribe', jsonParser, async (req, res) => {
   const { email, firstName, lastName } = req.body;
 
+  console.log('trying to post2 ');
+  console.log(webinarUrl);
+
   axios({
     method: "post",
-    url,
+      url: webinarUrl,
     data: {
       "email_address": email,
       "status": "subscribed",
       "merge_fields": {
-        "FNAME": "Urist",
-        "LNAME": "McVankab"
+        "FNAME": firstName,
+        "LNAME": lastName
       }
     },
     headers: {
@@ -59,8 +62,10 @@ app.post('/webinar/subscribe', jsonParser, async (req, res) => {
     },
     auth,
   }).then((response) => {
+    console.log(response);
     res.json(response.data);
   }).catch((error) => {
+    console.log(error);
     res.status(500).json({ error })
   });
 });

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "backpack build",
     "server": "backpack"
   },
   "dependencies": {
@@ -12,7 +13,8 @@
     "backpack-core": "^0.4.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "nodemon": "^1.12.5"
   },
   "author": "",
   "license": "ISC"
